@@ -1,0 +1,29 @@
+#define TRIG_PIN 10
+#define ECHO_PIN 9
+
+void setup() {
+  Serial.begin(9600);           // Initialize Serial Monitor at 9600 baud
+  pinMode(TRIG_PIN, OUTPUT);    // Set Trig as output
+  pinMode(ECHO_PIN, INPUT);     // Set Echo as input
+
+  digitalWrite(TRIG_PIN, LOW);  // Ensure Trig is LOW initially
+  delay(1000);                  // Give sensor time to settle
+}
+
+void loop() {
+  // Send ultrasonic pulse
+  digitalWrite(TRIG_PIN, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG_PIN, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG_PIN, LOW);
+
+  // Measure duration of echo
+  long duration = pulseIn(ECHO_PIN, HIGH);
+
+  Serial.print("Pulse duration: ");
+  Serial.print(duration);
+  Serial.println(" microseconds");
+
+  delay(1000); // Delay between readings
+}
